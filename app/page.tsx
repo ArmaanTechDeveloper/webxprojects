@@ -12,12 +12,12 @@ export default function Home() {
       text: "May i know are you a male or female?",
       options: ["male", "female"],
       responses: {
-        male: "what are you doing here bitch get off?",
+        male: "what are you doing here bitch get out?",
         female: null
       }
     },
     {
-      text: "Are you likeapro's special one? ❤︎",
+      text: "Are you Armaan's special one? ❤︎",
       options: ["yes", "no"],
       responses: {
         no: "You still think that - rethink",
@@ -25,7 +25,7 @@ export default function Home() {
       }
     },
     {
-      text: "Are you likeapros Pasandida aurat? 🫣🫣❤️",
+      text: "Are you Armaan's one of the Pasandida people? 🫣🫣❤️",
       options: ["yes", "no", "i don't know"],
       responses: {
         no: "There is no place for you",
@@ -60,14 +60,14 @@ export default function Home() {
   }, [message]);
 
   const handleOptionClick = (option: string) => {
-    const currentQuestion = questions[currentStep];
+    const currentQuestion = questions[currentStep - 1];
     const response = currentQuestion.responses[option as keyof typeof currentQuestion.responses];
 
     if (response) {
       setMessage(response);
     } else {
       setMessage('');
-      if (currentStep < questions.length - 1) {
+      if (currentStep < questions.length) {
         setCurrentStep(currentStep + 1);
       }
     }
@@ -77,6 +77,7 @@ export default function Home() {
     if (option === 'yes') return 'bg-green-500 hover:bg-green-600';
     if (option === 'no') return 'bg-red-500 hover:bg-red-600';
     if (option === "i don't know") return 'bg-red-500 hover:bg-red-600';
+    if (option === 'female') return 'bg-pink-500 hover:bg-pink-600';
     return 'bg-blue-500 hover:bg-blue-600';
   };
 
@@ -91,34 +92,36 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-      <div className="text-white text-5xl text-center mb-8 whitespace-pre-line">
+      <div className="text-white text-2xl md:text-4xl lg:text-5xl text-center mb-4 md:mb-8 whitespace-pre-line">
         {currentStep === 0 ? (
           <>
             hellooo i am rocket (an ai assistant){"\n"}
-            <span className="text-blue-300 px-2 rounded">of my sensei sir likeapro</span> 🤖👾
+            <span className="text-blue-300 px-2 rounded">of my sensei sir Armaan</span> 🤖👾
           </>
-        ) : currentStep === questions.length - 1 ? (
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-5xl whitespace-pre-line">
+        ) : currentStep === questions.length ? (
+          <div className="flex flex-col items-center gap-2 md:gap-4">
+            <div className="text-2xl md:text-4xl lg:text-5xl whitespace-pre-line">
               Welcome mam, Sir has sent you a sweet little message💥💥
             </div>
-            <div className="text-red-300 text-5xl mb-4">
+            <div className="text-red-300 text-2xl md:text-4xl lg:text-5xl mb-2 md:mb-4">
               Hope you enjoy😎
             </div>
             <button
               onClick={handleDownload}
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-8 rounded text-lg transition-colors duration-200"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 md:py-2 px-4 md:px-8 rounded text-base md:text-lg transition-colors duration-200"
             >
               Download the message
             </button>
           </div>
         ) : (
-          questions[currentStep].text
+          <div className="text-2xl md:text-4xl lg:text-5xl whitespace-pre-line">
+            {questions[currentStep - 1].text}
+          </div>
         )}
       </div>
       
       {showMessage && (
-        <div className="text-red-200 text-3xl text-center mb-8">
+        <div className="text-red-200 text-xl md:text-2xl lg:text-3xl text-center mb-4 md:mb-8">
           {message}
         </div>
       )}
@@ -126,17 +129,17 @@ export default function Home() {
       {currentStep === 0 ? (
         <button
           onClick={() => setCurrentStep(1)}
-          className="bg-red-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-lg transition-colors duration-200"
+          className="bg-red-500 hover:bg-blue-600 text-white font-bold py-1 md:py-2 px-3 md:px-4 rounded text-base md:text-lg transition-colors duration-200"
         >
           Proceed
         </button>
-      ) : currentStep < questions.length - 1 ? (
-        <div className="flex flex-row gap-4 justify-center">
-          {questions[currentStep].options.map((option) => (
+      ) : currentStep < questions.length ? (
+        <div className="flex flex-row gap-2 md:gap-4 justify-center">
+          {questions[currentStep - 1].options.map((option) => (
             <button
               key={option}
               onClick={() => handleOptionClick(option)}
-              className={`${getButtonColor(option)} text-white font-bold py-2 px-8 rounded text-lg transition-colors duration-200`}
+              className={`${getButtonColor(option)} text-white font-bold py-1 md:py-2 px-4 md:px-8 rounded text-base md:text-lg transition-colors duration-200`}
             >
               {option}
             </button>

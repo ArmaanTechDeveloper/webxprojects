@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
-  title: 'Quiz App',
-  description: 'Interactive quiz application',
+  title: 'Surprisseeeee',
+  description: 'Surpriseee for someone',
 }
 
 export default function RootLayout({
